@@ -1,4 +1,4 @@
-# Rollup plugin to serve the bundle
+# Rollup plugin that can serve the bundle in incognito mode
 
 <a href="LICENSE">
   <img src="https://img.shields.io/badge/license-MIT-brightgreen.svg" alt="Software License" />
@@ -17,18 +17,18 @@
 </a>
 
 ## Installation
-```
-# Rollup v0.60+ and v1+
-npm install --save-dev rollup-plugin-serve
+```js
+//npm
+npm install --save-dev @juxtacode/rollup-plugin-serve-newwin
 
-# Rollup v0.59 and below
-npm install --save-dev rollup-plugin-serve@0
+//yarn
+yarn add -D @juxtacode/rollup-plugin-serve-newwin
 ```
 
 ## Usage
 ```js
 // rollup.config.js
-import serve from 'rollup-plugin-serve'
+import serve from 'rollup-plugin-serve-newwin'
 
 export default {
   input: 'src/main.js',
@@ -77,6 +77,9 @@ serve({
   host: 'localhost',
   port: 10001,
 
+  // Setting incognito to true will open Chrome in a new window in incognito mode
+  incognito: false,
+
   // By default server will be served over HTTP (https: false). It can optionally be served over HTTPS
   https: {
     key: fs.readFileSync('/path/to/server.key'),
@@ -123,13 +126,15 @@ To get it running:
 
 ## Credits
 
-- [Thomas Ghysels](https://github.com/thgh)
+- [Joe Jorden][link-author]
+- [Thomas Ghysels][link-original]
 - [All Contributors][link-contributors]
 
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE) for more information.
 
-[link-author]: https://github.com/thgh
+[link-author]: https://github.com/juxtacode
+[link-original]: https://github.com/thgh
 [link-contributors]: ../../contributors
-[rollup-plugin-serve]: https://www.npmjs.com/package/rollup-plugin-serve
+[rollup-plugin-serve-newwin]: https://www.npmjs.com/package/rollup-plugin-serve-newwin

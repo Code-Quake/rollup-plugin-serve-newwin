@@ -2,9 +2,8 @@ import { readFile } from 'fs'
 import { createServer as createHttpsServer } from 'https'
 import { createServer } from 'http'
 import { resolve, posix } from 'path'
-
 import mime from 'mime'
-import opener from 'opener'
+import open from 'open'
 
 let server
 
@@ -20,6 +19,7 @@ function serve (options = { contentBase: '' }) {
   options.port = options.port || 10001
   options.headers = options.headers || {}
   options.https = options.https || false
+  options.incognito = options.incognito || false
   options.openPage = options.openPage || ''
   options.onListening = options.onListening || function noop () { }
   mime.default_type = 'text/plain'
@@ -110,9 +110,9 @@ function serve (options = { contentBase: '' }) {
         // Open browser
         if (options.open) {
           if (/https?:\/\/.+/.test(options.openPage)) {
-            opener(options.openPage)
+            open(options.openPage, options.incognito ? { app: { name: 'chrome', arguments: ['--incognito'] } } : null)
           } else {
-            opener(url + options.openPage)
+            open(url + options.openPage, options.incognito ? { app: { name: 'chrome', arguments: ['--incognito'] } } : null)
           }
         }
       }
@@ -174,6 +174,7 @@ export default serve
  * @property {boolean} [open=false] Launch in browser (default: `false`)
  * @property {string} [openPage=''] Page to navigate to when opening the browser. Will not do anything if `open` is `false`. Remember to start with a slash e.g. `'/different/page'`
  * @property {boolean} [verbose=true] Show server address in console (default: `true`)
+ * @property {boolean} [incognito=false] Open in a new chrome incognito window (default: `false`)
  * @property {string|string[]} [contentBase=''] Folder(s) to serve files from
  * @property {string|boolean} [historyApiFallback] Path to fallback page. Set to `true` to return index.html (200) instead of error page (404)
  * @property {string} [host='localhost'] Server host (default: `'localhost'`)
